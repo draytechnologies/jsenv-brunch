@@ -45,7 +45,7 @@ class JsenvCompiler {
         let matchingEnvVars = pick(process.env,keys(sandbox.module.exports))
         mappedEnv = Object.assign({},envHash,matchingEnvVars)
       }
-      result = "module.exports = " + JSON.stringify(mappedEnv)
+      result = "require.register(\"config\", function(exports, require, module) {module.exports = " + JSON.stringify(mappedEnv) + '});';
     } catch(e) {
       console.log(e)
       return Promise.reject(e)
